@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Zafiro Perfumes | Catálogo Online y Pedidos por WhatsApp</title>
+  <meta name="description" content="Tienda online de perfumes y fragancias originales para damas y caballeros. Realiza tu pedido directo por WhatsApp." />
+  <meta name="theme-color" content="#0d111a" />
+
+  <!-- Google Fonts: Playfair Display + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Estilos principales -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Contenedor principal estilo App Mobile-First -->
+  <div class="app-container" id="app">
+
+    <!-- 1. ENCABEZADO SUPERIOR (Logo + Título + WhatsApp directo + Menú) -->
+    <header class="header-top">
+      <div class="brand-section">
+        <div class="logo-badge" title="Zafiro Perfumes">
+          <!-- Silueta vectorial de frasco de perfume de lujo -->
+          <svg viewBox="0 0 24 24">
+            <path d="M10 2h4v2h-4zM9 5h6v2H9zM6 8h12c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V10c0-1.1.9-2 2-2zm6 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
+          </svg>
+        </div>
+        <div class="brand-titles">
+          <h1 class="brand-title" id="store-name">Zafiro <span>Perfumería</span></h1>
+          <span class="brand-subtitle" id="store-slogan">Esencia que te inspira</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Botón directo de chat por WhatsApp -->
+        <a id="btn-header-whatsapp" href="#" target="_blank" class="btn-header-wa" title="Escríbenos por WhatsApp">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+          </svg>
+        </a>
+
+        <!-- Botón de ajustes y configuración -->
+        <button class="btn-header-icon" onclick="openSettingsModal()" title="Configuración de la tienda">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="5" r="2"></circle>
+            <circle cx="12" cy="12" r="2"></circle>
+            <circle cx="12" cy="19" r="2"></circle>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Barra de estado de sincronización con Google Sheets -->
+    <div class="sync-bar">
+      <div class="sync-status">
+        <span class="sync-dot" id="sync-status-dot"></span>
+        <span id="sync-status-text">Conectando con Google Sheets...</span>
+      </div>
+      <button id="btn-sync-reload" class="sync-reload-btn" onclick="syncWithGoogleSheets(true)" title="Recargar catálogo desde la hoja de cálculo">
+        <span class="sync-icon">🔄</span> Actualizar
+      </button>
+    </div>
+
+    <!-- 2. HERO BANNER DE LUJO (Idéntico a la imagen) -->
+    <section class="hero-banner">
+      <div class="hero-content">
+        <span class="hero-tagline-pre">Descubre tu</span>
+        <h2 class="hero-title">Fragancia Ideal</h2>
+        <p class="hero-features">Calidad • Elegancia • Duración</p>
+        <button class="hero-cta" onclick="document.getElementById('catalog-section').scrollIntoView({ behavior: 'smooth' })">
+          Explora nuestro catálogo &gt;
+        </button>
+      </div>
+      <div class="hero-image-box">
+        <!-- Frasco de perfume elegante para el banner -->
+        <img 
+          src="https://lh3.googleusercontent.com/d/15B_IJmOFb2OTjPePjhYbDtGQks1L15HV=w400" 
+          alt="Perfume de Lujo" 
+          class="hero-perfume-img"
+          onerror="this.src='https://drive.google.com/thumbnail?id=15B_IJmOFb2OTjPePjhYbDtGQks1L15HV&sz=w400'"
+        />
+      </div>
+    </section>
+
+    <!-- 3. ACCESOS DIRECTOS / CATEGORÍAS (Idéntico a la imagen) -->
+    <section class="quick-categories">
+      <div class="cat-card" data-category="MAS_VENDIDOS" onclick="setCategoryFilter('MAS_VENDIDOS')">
+        <span class="cat-icon">★</span>
+        <span class="cat-name">Más Vendidos</span>
+      </div>
+      <div class="cat-card" data-category="OFERTAS" onclick="setCategoryFilter('OFERTAS')">
+        <span class="cat-icon">🏷</span>
+        <span class="cat-name">Ofertas Especiales</span>
+      </div>
+      <div class="cat-card" data-category="CABALLEROS" onclick="setCategoryFilter('CABALLEROS')">
+        <span class="cat-icon">⚥</span>
+        <span class="cat-name">Para Él</span>
+      </div>
+      <div class="cat-card" data-category="DAMAS" onclick="setCategoryFilter('DAMAS')">
+        <span class="cat-icon">✿</span>
+        <span class="cat-name">Para Ella</span>
+      </div>
+    </section>
+
+    <!-- 4. BARRA DE BÚSQUEDA Y FILTRO DE MARCAS -->
+    <section class="catalog-controls">
+      <div class="search-box">
+        <span class="search-icon-left">🔍</span>
+        <input 
+          type="text" 
+          id="search-input" 
+          class="search-input" 
+          placeholder="Buscar perfume, marca o aroma..." 
+          autocomplete="off" 
+        />
+        <button id="search-clear-btn" class="search-clear-btn" title="Limpiar búsqueda">✕</button>
+      </div>
+
+      <!-- Filtro horizontal deslizante de marcas (Carolina Herrera, Hugo Boss, Dior, etc.) -->
+      <div class="brand-scroll-bar" id="brand-filters-container">
+        <!-- Se llena dinámicamente con JavaScript -->
+      </div>
+    </section>
+
+    <!-- 5. TÍTULO DEL CATÁLOGO ("Nuestro Catálogo" como en la foto) -->
+    <section class="catalog-header" id="catalog-section">
+      <h2 class="catalog-title">Nuestro Catálogo</h2>
+      <a class="catalog-link-all" onclick="resetAllFilters()">Ver todos &gt;</a>
+    </section>
+
+    <!-- 6. CUADRÍCULA DE PRODUCTOS (2 Columnas idéntica a la imagen) -->
+    <main class="products-grid" id="products-grid">
+      <!-- Se llena dinámicamente con las fragancias de la hoja de Google Sheets -->
+    </main>
+
+    <!-- 7. BARRA DE NAVEGACIÓN INFERIOR FIJA (Inicio, Categorías, Ofertas, Mi Pedido, Contacto) -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" onclick="resetAllFilters(); window.scrollTo({ top: 0, behavior: 'smooth' })">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Inicio</span>
+      </button>
+
+      <button class="nav-item" onclick="setCategoryFilter('CABALLEROS')">
+        <span class="nav-icon">⊞</span>
+        <span class="nav-label">Categorías</span>
+      </button>
+
+      <button class="nav-item" onclick="setCategoryFilter('OFERTAS')">
+        <span class="nav-icon">%</span>
+        <span class="nav-label">Ofertas</span>
+      </button>
+
+      <button class="nav-item" onclick="openCartDrawer()">
+        <span class="nav-icon">🛒</span>
+        <span class="nav-label">Mi Pedido</span>
+        <span class="cart-badge" style="display: none;">0</span>
+      </button>
+
+      <a class="nav-item" id="nav-contact-link" href="#" target="_blank" onclick="this.href='https://wa.me/' + cleanPhone(AppState.config.whatsapp)">
+        <span class="nav-icon">💬</span>
+        <span class="nav-label">Contacto</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <!-- ==========================================================================
+       MODAL DE DETALLES DEL PRODUCTO (Idéntico a la pantalla derecha del diseño)
+       ========================================================================== -->
+  <div class="modal-overlay" id="product-modal" onclick="if(event.target === this) closeProductModal()">
+    <div class="modal-dialog">
+      <!-- Barra superior del modal (X de cerrar y contador) -->
+      <div class="modal-top-bar">
+        <button class="btn-modal-close" onclick="closeProductModal()" title="Cerrar">✕</button>
+        <span class="modal-counter">1 / 1</span>
+      </div>
+
+      <!-- Showcase de imagen con fondo oscuro de lujo -->
+      <div class="modal-image-showcase">
+        <img id="modal-showcase-img" src="" alt="Perfume" class="modal-showcase-img" />
+      </div>
+
+      <!-- Contenido descriptivo -->
+      <div class="modal-body">
+        <span class="modal-product-brand" id="modal-product-brand">MARCA</span>
+        <h2 class="modal-product-title" id="modal-product-title">Nombre del Perfume</h2>
+        <div class="modal-product-subtitle" id="modal-product-subtitle">Presentación • 100 ml</div>
+        
+        <div class="modal-product-price" id="modal-product-price">$0.00</div>
+
+        <!-- Descripción traída de Google Sheets -->
+        <p class="modal-description" id="modal-product-desc">
+          Descripción detallada del aroma y notas olfativas de la fragancia.
+        </p>
+
+        <!-- Puntos clave de valor (Idéntico a la foto) -->
+        <div class="detail-highlights">
+          <div class="highlight-item">
+            <span class="highlight-icon">💎</span>
+            <span>Larga duración garantizada</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">✓</span>
+            <span>Aroma elegante y versátil</span>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">🎁</span>
+            <span>Ideal para regalar o consentirte</span>
+          </div>
+        </div>
+
+        <!-- Banner de envíos a todo el país (Idéntico a la foto) -->
+        <div class="shipping-banner">
+          <div class="shipping-left">
+            <span class="shipping-tag-icon">🏷</span>
+            <div>
+              <div class="shipping-title">Envíos a todo el país</div>
+              <div class="shipping-sub">Compra fácil y 100% segura</div>
+            </div>
+          </div>
+          <span class="shipping-truck-icon">🚚</span>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="modal-actions">
+          <button class="btn-buy-wa" id="modal-btn-wa">
+            <span>💬</span>
+            <span>Comprar por WhatsApp</span>
+          </button>
+          
+          <button class="btn-add-cart-full" id="modal-btn-cart">
+            <span>🛒 Agregar al Carrito</span>
+          </button>
+
+          <button class="btn-share-catalog" onclick="shareProduct()">
+            <span>🔗 Compartir Fragancia</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       DRAWER DEL CARRITO DE COMPRAS Y FORMULARIO DE PEDIDO
+       ========================================================================== -->
+  <div class="cart-drawer" id="cart-drawer" onclick="if(event.target === this) closeCartDrawer()">
+    <div class="cart-panel">
+      <!-- Header del Carrito -->
+      <div class="cart-header">
+        <h2><span>🛒</span> Mi Pedido</h2>
+        <button class="btn-modal-close" onclick="closeCartDrawer()" title="Cerrar">✕</button>
+      </div>
+
+      <!-- Lista de Productos en el Carrito -->
+      <div class="cart-items-container" id="cart-items-container">
+        <!-- Renderizado dinámico -->
+      </div>
+
+      <!-- Formulario para los datos del cliente antes de enviar a WhatsApp -->
+      <div class="cart-form-section" id="cart-form-section">
+        <h3 class="cart-form-title"><span>📋</span> Datos para tu Pedido</h3>
+
+        <div class="form-group">
+          <label class="form-label" for="order-name">Nombre y Apellido *</label>
+          <input type="text" id="order-name" class="form-control" placeholder="Ej: Juan Pérez" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="order-phone">Teléfono / WhatsApp</label>
+          <input type="tel" id="order-phone" class="form-control" placeholder="Ej: 0414-1234567" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="order-address">Ciudad / Dirección de Entrega</label>
+          <input type="text" id="order-address" class="form-control" placeholder="Ej: San Diego, Valencia" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="order-delivery">Método de Entrega</label>
+          <select id="order-delivery" class="form-control">
+            <option value="Envío a domicilio (MRW / Zoom / Tealca)">Envío Nacional (MRW / Zoom / Tealca)</option>
+            <option value="Delivery Express">Delivery Express (Local)</option>
+            <option value="Retiro personal en tienda">Retiro personal en tienda</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="order-payment">Método de Pago Preferido</label>
+          <select id="order-payment" class="form-control">
+            <option value="Pago Móvil">Pago Móvil</option>
+            <option value="Zelle">Zelle</option>
+            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+            <option value="Efectivo en Dólares ($)">Efectivo en Dólares ($)</option>
+            <option value="Binance USDT">Binance USDT</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="order-notes">Notas u Observaciones (Opcional)</label>
+          <input type="text" id="order-notes" class="form-control" placeholder="Ej: Es para un regalo de cumpleaños" />
+        </div>
+      </div>
+
+      <!-- Total y Botón Enviar a WhatsApp -->
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span class="cart-total-label">Total a Pagar:</span>
+          <span class="cart-total-value" id="cart-total-value">$0.00</span>
+        </div>
+        <button class="btn-checkout-wa" id="btn-checkout-wa" onclick="sendOrderToWhatsApp()">
+          <span>💬</span>
+          <span>Enviar Pedido por WhatsApp</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL DE CONFIGURACIÓN (Permite configurar el WhatsApp del negocio)
+       ========================================================================== -->
+  <div class="modal-overlay" id="settings-modal" onclick="if(event.target === this) closeSettingsModal()">
+    <div class="modal-dialog settings-modal-dialog">
+      <div class="modal-top-bar" style="padding:0 0 12px 0;">
+        <h3>⚙️ Configuración de la Tienda</h3>
+        <button class="btn-modal-close" onclick="closeSettingsModal()">✕</button>
+      </div>
+      <p>
+        El catálogo se sincroniza automáticamente con tu hoja de cálculo de Google Sheets. Aquí puedes configurar o probar el número de WhatsApp que recibirá los pedidos.
+      </p>
+
+      <div class="form-group">
+        <label class="form-label" for="setting-name-input">Nombre de la Tienda</label>
+        <input type="text" id="setting-name-input" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="setting-wa-input">Número de WhatsApp (con código de país, ej: 584121234567)</label>
+        <input type="tel" id="setting-wa-input" class="form-control" placeholder="584120000000" />
+      </div>
+
+      <div style="background:#f1f5f9; padding:12px; border-radius:8px; margin:14px 0; font-size:0.75rem; color:#475569;">
+        <strong>🔗 Hojas de Google Sheets vinculadas:</strong><br/>
+        • Productos: GID 0 (33 fragancias cargadas)<br/>
+        • Configuración: GID 934150705<br/>
+        <em>Cualquier cambio que hagas en tu Google Sheet se reflejará al presionar "Actualizar".</em>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:16px;">
+        <button class="btn-add-cart-full" style="flex:1;" onclick="saveSettings()">Guardar Cambios</button>
+        <button class="btn-share-catalog" style="flex:1;" onclick="closeSettingsModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor de Alertas Flotantes (Toasts) -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="initial-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

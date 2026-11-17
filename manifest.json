@@ -1,0 +1,22 @@
+{
+  "name": "Zafiro Perfumes",
+  "short_name": "Zafiro",
+  "description": "Catálogo online de perfumes y pedidos por WhatsApp",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0d111a",
+  "theme_color": "#0d111a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://lh3.googleusercontent.com/d/15B_IJmOFb2OTjPePjhYbDtGQks1L15HV=w192",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "https://lh3.googleusercontent.com/d/15B_IJmOFb2OTjPePjhYbDtGQks1L15HV=w512",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
